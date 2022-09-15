@@ -1,2 +1,2 @@
-# rate-limiter
-Brute Force Protection Service
+# Brute Force Protection Service
+
