@@ -2,17 +2,14 @@ package server
 
 import (
 	"context"
-	"fmt"
+	pb "github.com/novikov-ai/rate-limiter/api/pb"
+	"github.com/novikov-ai/rate-limiter/configs"
 	"google.golang.org/grpc"
 	"net"
-	"rate-limiter/configs"
 )
 
-//import "github.com/novikov-ai/practice-misc/"
-//  pb "github.com/novikov-ai/practice-misc/hw12_13_14_15_calendar/internal/server/pb"
-
 type Service struct {
-	//  pb.UnimplementedCalendarServer
+	pb.UnimplementedLimiterServer
 }
 
 func Start(ctx context.Context, conf configs.Config) error {
@@ -29,9 +26,8 @@ func Start(ctx context.Context, conf configs.Config) error {
 	//)
 
 	service := new(Service)
-	fmt.Println(service)
 
-	// pb.RegisterCalendarServer(server, service)
+	pb.RegisterLimiterServer(server, service)
 
 	if err = server.Serve(lsn); err != nil {
 		return err
@@ -41,4 +37,26 @@ func Start(ctx context.Context, conf configs.Config) error {
 	return nil
 }
 
-//func (s *Service) DetectBruteforce(ctx context.Context, request *pb.)  (*pb.AddEventResponse, error) {
+func (s *Service) DetectBruteforce(ctx context.Context, request *pb.DetectBruteforceRequest) (*pb.DetectBruteforceResponse, error) {
+	return &pb.DetectBruteforceResponse{Detected: false}, nil
+}
+
+func (s *Service) ResetBucket(ctx context.Context, request *pb.ResetBucketRequest) (*pb.ResetBucketResponse, error) {
+	return &pb.ResetBucketResponse{Status: 0}, nil
+}
+
+func (s *Service) WhiteListAddIP(ctx context.Context, request *pb.ManageAddressRequest) (*pb.ManageAddressResponse, error) {
+	return &pb.ManageAddressResponse{Status: 0}, nil
+}
+
+func (s *Service) WhiteListRemoveIP(ctx context.Context, request *pb.ManageAddressRequest) (*pb.ManageAddressResponse, error) {
+	return &pb.ManageAddressResponse{Status: 0}, nil
+}
+
+func (s *Service) BlackListAddIP(ctx context.Context, request *pb.ManageAddressRequest) (*pb.ManageAddressResponse, error) {
+	return &pb.ManageAddressResponse{Status: 0}, nil
+}
+
+func (s *Service) BlackListRemoveIP(ctx context.Context, request *pb.ManageAddressRequest) (*pb.ManageAddressResponse, error) {
+	return &pb.ManageAddressResponse{Status: 0}, nil
+}

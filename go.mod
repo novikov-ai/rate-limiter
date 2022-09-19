@@ -1,4 +1,4 @@
-module rate-limiter
+module github.com/novikov-ai/rate-limiter
 
 go 1.18
 
