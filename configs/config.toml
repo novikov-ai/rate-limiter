@@ -1,0 +1,15 @@
+[application]
+name = "Rate Limiter"
+
+# [logger]
+# level = "debug"
+#
+# [server]
+# host = "localhost"
+# port = "8080"
+# port_grpc = "50051"
+#
+# [database]
+# in_memory = false
+# driver = "postgres"
+# source = "user=root password=secret dbname=root sslmode=disable"

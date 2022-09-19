@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package api;
+option go_package = "./";
+
+service Limiter{
+  rpc DetectBruteforce(DetectBruteforceRequest) returns (DetectBruteforceResponse);
+
+  rpc ResetBucket(ResetBucketRequest) returns (ResetBucketResponse);
+
+  rpc WhiteListAddIP(ManageAddressRequest) returns (ManageAddressResponse);
+  rpc WhiteListRemoveIP(ManageAddressRequest) returns (ManageAddressResponse);
+  rpc BlackListAddIP(ManageAddressRequest) returns (ManageAddressResponse);
+  rpc BlackListRemoveIP(ManageAddressRequest) returns (ManageAddressResponse);
+}
+
+message DetectBruteforceRequest{
+  string login = 1;
+  string password = 2;
+  string ip = 3;
+}
+
+message DetectBruteforceResponse{
+  bool detected = 1;
+}
+
+message ResetBucketRequest{
+  repeated string logins = 1;
+  repeated string ips = 2;
+}
+
+message ResetBucketResponse{
+  ResponseStatus status = 1;
+}
+
+message ManageAddressRequest{
+  string ip = 1;
+  string mask = 2;
+}
+
+message ManageAddressResponse{
+    ResponseStatus status = 1;
+}
+
+enum ResponseStatus{
+  STATUS_SUCCESS = 0;
+  STATUS_FAILED = 1;
+}
+
+// todo: remove
+// protoc api/limiter.proto --go_out=api/pb --go-grpc_out=api/pb
